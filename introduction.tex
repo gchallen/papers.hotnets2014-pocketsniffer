@@ -16,18 +16,19 @@ measurement also improves on existing approaches that use periodic planned
 site surveys, since the data they provide is neither continuous nor
 representative of the experience of actual network users.
 
-Figure~\ref{fig-example} illustrates the type of spectrum adaptation
-smartphones can enable. As a user engages with their laptop, their smartphone
-is nearby and capable of helping the laptop improve its usage of the
-spectrum, in this case by scanning other channels and determining that both
-the client and access point should move to a different, less-congested
-portion of the spectrum. As a second example, as one user engages with their
-smartphone, the smartphone of a second user sitting nearby may be inactive
-and able to perform measurements. Smartphones can also provide continuous
+As an example of the type of spectrum adaptation smartphones can enable, as a
+user engages with their laptop their smartphone is nearby and capable of
+helping the laptop improve its usage of the spectrum by scanning other
+channels and determining whether both the client and access point should move
+to a different, less-congested portion of the spectrum. Measurements from
+passive smartphones can also improve the wireless performance of other users:
+as a second example, as one user engages with their smartphone, the
+smartphone of a second user sitting nearby may be inactive and able and
+willing to perform measurements. Smartphones can also provide continuous
 observations of wireless performance to help providers provision and maintain
-their networks. We refer to these approaches as \textbf{c}rowdsourcing
-\textbf{a}ccess \textbf{n}etwork \textbf{s}pectrum \textbf{a}llocation using
-\textbf{s}martphones, or \textbf{CANSAS}.
+their networks. We refer to these approaches collectively as
+\textbf{c}rowdsourcing \textbf{a}ccess \textbf{n}etwork \textbf{s}pectrum
+\textbf{a}llocation using \textbf{s}martphones, or \textbf{CANSAS}.
 
 Realizing CANSAS requires novel integration between smartphones, an adaptive
 network, and algorithms enabling cooperative spectrum allocation on both
@@ -35,16 +36,27 @@ short and long timescales. This paper describes a prototype system
 implementing CANSAS for Wifi networks called \textbf{PocketSniffer}.
 PocketSniffer uses a publish-subscribe architecture to perform both
 asynchronous and synchronous measurement collection from passive smartphones
-and use them to improve the performance of active clients. Measurements are
-used as inputs to new algorithms---including game-theoretic approaches---that
-perform joint channel assignment, power control, rate selection, and
-transmission scheduling to improve spectrum efficiency assuming a variety of
-different network structures, including both fully-cooperative settings and
-cases where multiple independently-administered networks compete for the
-local spectrum resources. These scenarios are representative of both typical
-home and corporate Wifi deployments. PocketSniffer measurements are also
-provided to network administrators in order to perform long-term monitoring
-and network maintenance. PocketSniffer provides a platform for testing these
-new algorithms and determining how to incentivize client measurement
-collection, assuring that collected measurements are accurate, and minimizing
-the energy overhead for participating devices.
+and use collected data to improve the performance of active clients.
+Measurements are used as inputs to new algorithms---including game-theoretic
+approaches---that perform joint channel assignment, power control, rate
+selection, and transmission scheduling to improve spectrum efficiency
+assuming a variety of different network structures, including both
+fully-cooperative settings and cases where multiple
+independently-administered networks compete for the local spectrum resources.
+These scenarios are representative of both typical home and corporate Wifi
+deployments. PocketSniffer measurements are also provided to network
+administrators in order to perform long-term monitoring and network
+maintenance. PocketSniffer provides a platform for testing these new
+algorithms and determining how to incentivize client measurement collection,
+assuring that collected measurements are accurate, and minimizing the energy
+overhead for participating devices.
+
+The rest of this paper is structured as follows. We begin by describing how
+using passive smartphones improves on previous client-side measurement
+approaches in Section~\ref{sec-related}. Section~\ref{sec-design} briefly
+describes the design of the data collection portions of PocketSniffer while
+Section~\ref{sec-algorithms} discusses several game-theoretic algorithms that
+utilize PocketSniffer measurements to perform spectrum adaptation. We
+continue by presenting results from a prototype PocketSniffer system in
+Section~\ref{sec-results} before discussing open challenges in
+Section~\ref{sec-challenges} and concluding in Section~\ref{sec-conclusions}.
