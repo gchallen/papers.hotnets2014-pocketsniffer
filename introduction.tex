@@ -1,1 +1,50 @@
 \section{Introduction}
+
+The rapid proliferation of smartphones represents both a challenge and an
+opportunity for wireless spectrum allocation. On one hand, smartphones are
+competing for the same limited spectrum already crowded with other devices.
+On the other hand, the growing network of mobile, always-on smartphones
+constitutes an unprecedented new source of detailed measurements of spectrum
+usage and availability. In addition, because smartphones are always on but
+idle much of the time, they are in a unique position to provide measurements
+about \textit{other} nearby active wireless devices---such as laptops,
+tablets, or other smartphones---meaning that measurements can be performed
+passively without disturbing devices actively using the spectrum, a
+capability that has not been exploited by other systems designed to
+incorporate client-side feedback into spectrum allocation. This type of
+measurement also improves on existing approaches that use periodic planned
+site surveys, since the data they provide is neither continuous nor
+representative of the experience of actual network users.
+
+Figure~\ref{fig-example} illustrates the type of spectrum adaptation
+smartphones can enable. As a user engages with their laptop, their smartphone
+is nearby and capable of helping the laptop improve its usage of the
+spectrum, in this case by scanning other channels and determining that both
+the client and access point should move to a different, less-congested
+portion of the spectrum. As a second example, as one user engages with their
+smartphone, the smartphone of a second user sitting nearby may be inactive
+and able to perform measurements. Smartphones can also provide continuous
+observations of wireless performance to help providers provision and maintain
+their networks. We refer to these approaches as \textbf{c}rowdsourcing
+\textbf{a}ccess \textbf{n}etwork \textbf{s}pectrum \textbf{a}llocation using
+\textbf{s}martphones, or \textbf{CANSAS}.
+
+Realizing CANSAS requires novel integration between smartphones, an adaptive
+network, and algorithms enabling cooperative spectrum allocation on both
+short and long timescales. This paper describes a prototype system
+implementing CANSAS for Wifi networks called \textbf{PocketSniffer}.
+PocketSniffer uses a publish-subscribe architecture to perform both
+asynchronous and synchronous measurement collection from passive smartphones
+and use them to improve the performance of active clients. Measurements are
+used as inputs to new algorithms---including game-theoretic approaches---that
+perform joint channel assignment, power control, rate selection, and
+transmission scheduling to improve spectrum efficiency assuming a variety of
+different network structures, including both fully-cooperative settings and
+cases where multiple independently-administered networks compete for the
+local spectrum resources. These scenarios are representative of both typical
+home and corporate Wifi deployments. PocketSniffer measurements are also
+provided to network administrators in order to perform long-term monitoring
+and network maintenance. PocketSniffer provides a platform for testing these
+new algorithms and determining how to incentivize client measurement
+collection, assuring that collected measurements are accurate, and minimizing
+the energy overhead for participating devices.
