@@ -89,3 +89,22 @@ not, there would be no need for them to coordinate spectrum allocations. This
 means that there are events that should be visible to APs in both WLANs,
 potentially providing a source of mutually-verifiable information to the SPs
 as they attempt to cooperate.
+
+\subsection{Controlling Client Energy Consumption}
+\label{subsec-energy}
+
+We are exploring several ways to address the energy overhead of performing
+detailed spectrum utilization measurements. One is to limit these
+measurements to support synchronous adaptation by active terminals operated
+by the same client: i.e., by Bob's smartphone only to help Bob's laptop
+locate a better channel in the example above. In the second part of the
+example, if Bob has forgotten his smartphone, Alice's device may be unwilling
+to incur the battery drain necessary to help Bob and only agree to provide
+scan results rather than detailed channel utilization measurements. A second
+approach is to ensure that the algorithms triggering synchronous data
+collection only request detailed measurements when needed. Finally, the
+PocketSniffer app includes an energy cap applied over each charging session
+limiting the total energy clients will devote to PocketSniffer measurements.
+Once this limit is exhausted, the client will not contribute measurements in
+response to synchronous queries or perform detailed measurements.
+

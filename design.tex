@@ -1,39 +1,41 @@
+\newpage
 \section{PocketSniffer Design}
 \label{sec-design}
 
-This section describes the design of PocketSniffer, a system enabling CANSAS
-for Wifi wireless local area networks (WLANs). PocketSniffer addresses the
-practical implementation issues of providing the client-side measurements
-needed to enable the CANSAS algorithms described in the following section.
-We begin with an overview of the operation of the PocketSniffer system from
-the perspective of a network user.
+This section describes the design of \PS{}, a system enabling CANSAS for Wifi
+networks by providing the client-side measurements needed to enable the
+coordination algorithms described in the next section. We begin with an
+overview of the \PS{} system from the perspective of a network user.
 
 \subsection{Overview}
 
-When Alice and Bob register for their campus WLAN they are both required to
-download and install the PocketSniffer monitoring app to their smartphones.
-As they travel around campus, their smartphones collect measurements on the
-health and performance of their campus network, reporting these measurements
-through the PocketSniffer service to their campus service provider (SP) in an
-energy-neutral way by waiting to upload measurements until their devices are
-plugged in and charging.
+When Alice registers for her campus WLAN she also installs the \PS{}
+monitoring app to her smartphone. As she travels around campus, her
+smartphone collect measurements on the health and performance of the campus
+network based on queries established by network administrators, reporting
+these measurements in an energy-neutral way by uploading data only when her
+smartphone is charging.
 
 In addition, as Alice and Bob sit in a campus cafe surfing the web on their
 laptops---also both associated to the campus WLAN---suddenly a new source of
 interference begins to disrupt their network performance. Unfortunately this
 interfering terminal cannot be overheard at the access point (AP) they are
 associated with, but the AP can tell that Alice's and Bob's networking
-environment has degraded. At this point, it triggers the PocketSniffer app on
-their smartphones to both confirm the interference and search available
-spectrum for a less-congested channel. Based on the measurements collected
-from the PocketSniffer app the AP may move their laptops to a different
-channel, adjust its power level, or suggest they associate with a different
-AP operated by the same campus SP, all without interrupting their web
-surfing. In addition, if Alice and Bob are collocated and either one of them
-does not have their smartphone, the PocketSniffer service can use the one
-available smartphone to estimate spectrum availability at their shared
-location. Later, when Alice and Bob return home to neighboring apartments
-with overlapping home wireless networks, their competing networks use
+environment has degraded. At this point, it triggers the \PS{} app on Alice's
+smartphone to search for a less-congested channel and may move their laptops
+to a different channel, adjust its power level, or suggest they associate
+with a different campus AP, all without interrupting their web surfing.
+
+Note that in this case Bob's smartphone did not participate in the network
+adaptation. Bob may not have had his device with him, may not have installed
+the \PS{} app, or may not have the network hardware required to perform the
+detailed channel utilization measurements necessary to enable this
+adaptation. Regardless of the reason, \PS{} is able to use Alice's nearby
+smartphone to estimate the impact of changes on Bob's laptop to ensure that
+any spectrum adaptation benefits both devices.
+
+Later, when Alice and Bob return home to neighboring apartments with
+overlapping home wireless networks, their competing networks use
 PocketSniffer measurements as inputs to perform cooperative spectrum
 allocation. Despite the lack of centralized control, their two networks
 jointly adapt to allocate spectrum in a way that improves performance for
@@ -50,176 +52,94 @@ ways---asynchronously and synchronously.
 collect and provide a high-level view of the network including visible APs
 and the signal strength computed from their beacon messages. Android
 smartphones already perform Wifi scans at regular intervals, even while
-already associated with a given network (although at a slower rate).
-Providing this data to SPs creates no energy overhead for terminals as long
-as the measurements are not uploaded while the battery is discharging.
+associated with a Wifi network. Recovering this data incurs no energy
+overhead for clients as long as the measurements are not uploaded while the
+battery is discharging, and our recent analysis of \XXXnote{FIXME} scan
+results collected from \XXXnote{FIXME} smartphones over \XXXnote{FIXME} days
+has demonstrated the value of this data for network monitoring and debugging.
+
 However, because smartphones are frequently idle, periodic scans may not
-reflect both (1) locations where users actually use their devices and (2)
-locations where their devices use the network. To better connect Wifi scans
-with interactive usage and network activity, PocketSniffer annotates each
-scan with two pieces of information. First, we indicate whether the scan was
-performed during \textit{interactive use} determined by the screen state.
-Second, we include the timestamp since device's last data transfer, because
-not every interactive session includes Wifi usage and because smartphones
-perform background data transfers with the screen disabled.
+reflect either locations where users actually use their devices or locations
+where their devices use the network. To better connect Wifi scans with
+interactive usage and network activity, \PS{} annotates each scan with two
+pieces of information: (1) whether the scan was performed during
+\textit{interactive use} determined by the screen state, and (2) the
+timestamp since device's last data transfer, because not every interactive
+session includes Wifi usage and because smartphones perform background data
+transfers with the screen disabled.
 
-In contrast, spectrum utilization measurements are expensive to
-collect and may not be possible to collect on all clients, but provide
-a very detailed view of spectrum usage. The ability of Wifi chipsets
-to observe link-layer signaling traffic and packets sent by other
-terminals varies from device to device, and because these measurements
-require disabling the power-save mode used by mobile Wifi chipsets
-they consume extra energy even if measurement upload is performed in
-an energy-neutral way.
-
-We are exploring several ways to address the energy overhead of performing
-detailed spectrum utilization measurements. One is to limit these
-measurements to support synchronous adaptation by active terminals operated
-by the same client: i.e., by Bob's smartphone only to help Bob's laptop
-locate a better channel in the example above. In the second part of the
-example, if Bob has forgotten his smartphone, Alice's device may be unwilling
-to incur the battery drain necessary to help Bob and only agree to provide
-scan results rather than detailed channel utilization measurements. A second
-approach is to ensure that the algorithms triggering synchronous data
-collection only request detailed measurements when needed. Finally, the
-PocketSniffer app includes an energy cap applied over each charging session
-limiting the total energy clients will devote to PocketSniffer measurements.
-Once this limit is exhausted, the client will not contribute measurements in
-response to synchronous queries or perform detailed measurements.
+In contrast, spectrum utilization measurements are expensive to collect and
+may not be possible to collect on all clients, but provide a very detailed
+view of spectrum usage. The ability of Wifi chipsets to observe link-layer
+signaling traffic and packets sent by other terminals varies from device to
+device, and because these measurements require disabling the power-save mode
+used by mobile Wifi chipsets they consume extra energy even if measurement
+upload is performed in an energy-neutral way. We discuss several research
+challenges caused by Wifi chipset heterogeneity in
+Section~\ref{sec-challenges}.
 
 \subsubsection{Asynchronous queries:\space} Asynchronous measurements are
 used to perform network monitoring and as a replacement for expensive site
 surveys in order to do spatial and temporal spectral capacity planning. For
-asynchronous queries the PocketSniffer app allows clients to publish
-measurements to a \textit{CANSAS subscription} set up by SPs. Each CANSAS
-subscription contains the set of APs operated by the SP, an endpoint where
-the SP will receive data published by clients, and a list of one or more
-\textit{queries} describing requested measurements. The PocketSniffer app
-periodically retrieves this information from a central server and updates its
-SP list and metadata. In order to verify the accuracy of these subscription
-descriptions, each is signed by the issuer using a certificate issued by a
-known certificate authority. To avoid flooding users with many irrelevant
-subscriptions---for example, to SPs located in other states---the
-PocketSniffer app uses the history of APs that the client has seen to filter
-the subscription list to WLANs it can measure.
+asynchronous queries the \PS{} app allows clients to publish measurements to
+a \textit{CANSAS subscription} set up by network administrators, each of
+which contains one or more \textit{queries} describing requested
+measurements. PocketSniffer's queries allow administrators to configure
+asynchronous data collection in the following ways, restricting the type of
+data collected, the devices that participate, APs to observe, and times
+during which to perform measurements. Pushing queries to clients allows \PS{}
+to limit the energy overhead of the measurement process, even for
+asynchronous queries when the data can most likely be collected during
+charging sessions.
 
-PocketSniffer's queries allow SPs to configure asynchronous data collection
-in the following ways:
-
-\begin{itemize}
-
-\item \textbf{By type:} queries may request scans, detailed spectrum
-measurements, or both.
-
-\item \textbf{By device:} queries may limit themselves to a device or set of
-devices, allowing PocketSniffer to apply different queries to devices used by
-SP administrators---which might be required to provide more data---and those
-used by normal WLAN users.
-
-\item \textbf{By AP:} queries may specify that the SP is only interested in
-measuring a subset of its APs.
-
-\item \textbf{By time and time interval:} queries can specify date and time
-ranges as well as request the rate at which new measurements matching the
-query should be returned. If the rate is not set, PocketSniffer will not
-initiate measurements but will still collect those---particularly scan
-results---performed naturally.
-
-\end{itemize}
-
-A simple query would request scan results only without additional filters on
-devices, APs, or time---this will produce continuous scan results for all APs
-operated by the SP from all PocketSniffer terminals. As a second example of
-more targeted data collection, SP administrators could investigate reports of
-poor performance in a particular building by requesting detailed measurements
-and filtering by the subset of APs serving the building. Once the problem was
-addressed, the query would be deactivated.
-
-Given that PocketSniffer's goal is to avoid disturbing active terminals, care
-must be taken when scheduling asynchronous measurements. A clear tradeoff
-exists: the closer in time measurements are taken to periods of interactive
-use, the more representative they are of the spectrum conditions at locations
-where smartphones are used; at the same time, however, increasing temporal
-proximity makes measurements more likely to collide with a new period of
-interactive use. As a compromise, PocketSniffer adaptively schedules
-asynchronous data collection a varying amount of time after each interactive
-session. 
+Given that \PS{}'s goal is to avoid disturbing active terminals, care must be
+taken when scheduling asynchronous measurements. A clear tradeoff exists: the
+closer in time measurements are taken to periods of interactive use, the more
+representative they are of the spectrum conditions at locations where
+smartphones are used; at the same time, however, increasing temporal
+proximity makes measurements more likely to collide with the next period of
+interactive use. As a compromise, \PS{} adaptively schedules asynchronous
+data collection a varying amount of time after each interactive session. 
 
 \subsubsection{Synchronous queries:\space} To support fine-grained adaptation
-to changing spectrum conditions, PocketSniffer also supports synchronous
-queries. Unlike asynchronous queries---which are initiated by terminals,
-long-running, and satisfied in a delay-tolerant fashion---synchronous queries
-are are on-shot and initiated directly by APs. When associated to an AP
-included in a PocketSniffer subscription that the user has already joined,
-the PocketSniffer app will listen for synchronous queries sent by the AP over
-the WLAN on a dedicated port. Synchronous queries contain the following
-information:
+to changing spectrum conditions, \PS{} also supports synchronous queries.
+Unlike asynchronous queries---which are initiated by terminals, long-running,
+and satisfied in a delay-tolerant fashion---synchronous queries are are
+on-shot and initiated directly by APs. Synchronous queries share the
+asynchronous query format but also include a list of active terminals that
+\PS{} is requesting information about, which allows clients to determine
+whether to respond as described below. When associated to an AP included in a
+\PS{} subscription that the user has already joined, the \PS{} app will
+listen for synchronous queries sent by the AP over the WLAN on a dedicated
+port.
+
+When an asynchronous query arrives \PS{} clients can decide whether they
+should collect and return the requested measurements, a decision that is
+determined by several factors:
 
 \begin{itemize}
 
-\item \textbf{List of active terminals:} these are terminals that the query
-is requesting information about and will normally be equal to the set of
-active terminals currently associated to the AP that issued the query. This
-is to help terminals determine if the measurements they have collected are
-relevant to the query.
+\item \textbf{Usage status.} Because the goal of \PS{} is to avoid disturbing
+active sessions active clients will ignore synchronous queries.
 
-\item \textbf{Time range:} a time window over which data is requested for
-this query. In some cases, terminals may already have cached data to respond
-to a query generated by asynchronous data collection, such as results from a
-scan performed shortly before the query was issued.
+\item \textbf{Relationships between terminals.} \PS{} allows users to
+configure their app to always return data about other devices that they own.
+Relationships between terminals can be manually configured through the app,
+or a list of other devices associated with a given user can be retrieved from
+the \PS{} service to assist this process.
 
-\item \textbf{Data requested:} queries may request that terminals (1) perform
-scans, potentially limited to a specific set of channels; (2) collect
-detailed spectrum measurements from one or multiple channels; or (3) conduct
-active probing of an AP on another or the same channel by associating with it
-and exchanging traffic.
+\item \textbf{Proximity to active terminals.} \PS{} clients must determine
+whether they can provide measurements approximating the network conditions
+experience by the active clients included in the query. We return to the
+challenge of proximity detection and the question of whether to perform
+proximity detection in signal or physical space in
+Section~\ref{sec-challenges}.
 
-\end{itemize}
-
-Based on the query PocketSniffer terminals can decide whether they should
-collect and return the requested measurements, a decision that is determined
-by several factors:
-
-\begin{itemize}
-
-\item \textbf{Usage status.} Normally active terminals will not participate
-in PocketSniffer queries, since the goal of PocketSniffer is to avoid
-disturbing normal usage of the WLAN.
-
-\item \textbf{Relationships between terminals.} PocketSniffer allows users to
-configure their app to always return data about other devices that they own:
-for example, Bob's smartphone will always respond to queries if his laptop is
-listed as one of the active terminals. Relationships between terminals can be
-manually configured through the PocketSniffer app, or a list of other devices
-associated with a given user can be retrieved from the PocketSniffer service
-to assist this process.
-
-\item \textbf{Proximity to active terminals.} In the case where measurements
-for a related terminal are requested by the query, PocketSniffer will assume
-that the smartphone is close enough to the related device to provide useful
-data and proceed to perform the requested measurement. This is because we
-assume that smartphones are usually close to their user and that their user
-is usually close to the active terminal.
-
-If no measurements for a related terminal are requested, however, then this
-assumption does not hold and the PocketSniffer device may not be able to
-observe the network conditions at the active terminals and so not have data
-relevant to the query. One option would be for the PocketSniffer device to
-try to estimate its proximity to devices in the list of requested terminals,
-but proximity detection on smartphones is an open research
-problem~\cite{searchlight-mobicom12} and likely to consume
-energy---potentially more than just performing the measurement requested by
-the query. Another option is for the PocketSniffer client to simply decide
-whether to participate in the query based on other factors, including its
-battery level as discussed next. Note, however, that this design decision
-means that PocketSniffer APs should not assume that collected data is
-relevant to the query that they issued.
-
-\item \textbf{Battery level.} Because PocketSniffer runs on
-  energy-constrained devices terminals are free to not participate if they
-  decide that doing so would negatively affect their battery life. The
-  PocketSniffer app allows users to configure separate battery requirements
-  for queries related and unrelated to their other devices.
+\item \textbf{Battery level.} Because \PS{} runs on energy-constrained
+  devices clients are free to not participate if they decide that doing so
+  would negatively affect their battery life. The \PS{} app allows users to
+  configure separate battery requirements for queries related and unrelated
+  to their other devices.
 
 \end{itemize}
 
