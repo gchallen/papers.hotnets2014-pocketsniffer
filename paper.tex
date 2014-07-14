@@ -1,0 +1,73 @@
+\input{./include/start.tex}
+
+\ifdefined\isdraft
+  \usepackage{draftwatermark}
+  \SetWatermarkText{Under Submission}
+  \SetWatermarkScale{0.6}
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \renewcommand{\headrulewidth}{0pt}
+  \lhead{}
+  \chead{Under Submission to HotNets'14. Do not distribute.}
+  \rhead{}
+\else
+\fi
+
+\begin{document}
+
+\def\thetitle{Using Smartphones to Monitor, Debug, and Reconfigure Wireless
+Networks}
+\title{\thetitle}
+
+\date{}
+
+\ifdefined\isdraft
+
+\author{
+  Jinghao Shi, Chunming Qiao, Dimitrious Koutsonikolas and Geoffrey Challen\\
+  \affaddr{Department of Computer Science and Engineering}\\
+  \affaddr{University at Buffalo}\\
+  \email{\{jinghaos,qiao,dimitrio,challen\}@buffalo.edu}
+}
+\hypersetup{
+  pdfinfo={
+    Title={\thetitle},
+    Author={Jinghao Shi, Chunming Qiao, Dimitrious Koutsonikolas and Geoffrey
+    Challen}
+  },
+}
+\else
+\author{
+  Paper \# 46
+}
+\hypersetup{
+  pdfinfo={
+    Title={\thetitle},
+  },
+}
+\fi
+
+\CopyrightYear{2014}
+\crdata{}
+
+\maketitle
+
+\ifdefined\isblue
+\begin{textblock}{1}(6.4,0)
+\noindent\href{http://blue.cse.buffalo.edu}{\includegraphics[width=0.6in]{./figures/logos/blue.jpg}}
+\end{textblock}
+\fi
+
+\input{abstract.tex}
+\input{introduction.tex}
+
+\input{conclusion.tex}
+
+\newpage
+%\balance
+{\footnotesize
+\bibliographystyle{acm}
+\bibliography{references}
+}
+
+\end{document}

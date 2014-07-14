@@ -1,0 +1,13 @@
+ABSTRACT
+/paper.pdf
+/.xxxnote
+/.draft
+/.blue
+*.swp
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+.deps
+.~lock*
