@@ -96,11 +96,11 @@ queries when the data can most likely be collected during charging sessions.
 data collection until a certain amount of time has elapsed since the last
 interactive session.
 
-To support both network monitoring and debugging on long timescales and
-adaptation on short timescales, \PS{} uses both synchronous and asynchronous
+To support both network monitoring and debugging over long timescales as well
+as rapid network adaptation \PS{} uses both synchronous and asynchronous
 queries. Asynchronous queries are configured by network administrators,
 long-running, and satisfied through delay-tolerant upload. Synchronous
-queries are initiated programmatically by APs, short-lived, and satisfied
+queries are initiated on-demand by APs, short-lived, and satisfied
 immediately by participating clients. When an asynchronous query arrives
 \PS{} clients can decide whether they should collect and return the requested
 measurements, a decision that is determined by several factors:
@@ -124,10 +124,9 @@ proximity detection in signal or physical space in
 Section~\ref{sec-challenges}.
 
 \item \textbf{Battery level.} Because \PS{} runs on energy-constrained
-  devices clients are free to not participate if they decide that doing so
-  would negatively affect their battery life. The \PS{} app allows users to
-  configure separate battery requirements for queries related and unrelated
-  to their other devices.
+  devices clients are free to not participate if they are low on energy. The
+  \PS{} app allows users to configure separate battery thresholds for queries
+  related and unrelated to their other devices.
 
 \end{itemize}
 
