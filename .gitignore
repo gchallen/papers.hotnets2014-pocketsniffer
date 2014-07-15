@@ -11,3 +11,6 @@ ABSTRACT
 *.blg
 .deps
 .~lock*
+sig-alternate-10pt.cls
+LatexMakefile
+out
