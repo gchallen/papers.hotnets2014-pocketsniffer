@@ -9,64 +9,64 @@ overview of the \PS{} system from the perspective of a network user.
 
 \subsection{Overview}
 
-When Alice registers for her campus WLAN she also installs the \PS{}
-monitoring app to her smartphone. As she travels around campus, her
-smartphone collect measurements on the health and performance of the campus
-network based on queries established by network administrators, reporting
-these measurements in an energy-neutral way by uploading data only when her
-smartphone is charging.
+When Alice and Bob register for their campus WLAN they are required to
+install the \PS{} monitoring app on their smartphones. As they travel around
+campus, their smartphones collect measurements on the health and performance
+of the campus network based on queries established by network administrators,
+reporting these measurements in an energy-neutral way by uploading data only
+when their smartphones are charging. Network administrators can use this data
+to identify poorly-served areas of campus, locate APs that are over- or
+underutilized, and for other network monitoring and debugging purposes.
 
-In addition, as Alice and Bob sit in a campus cafe surfing the web on their
-laptops---also both associated to the campus WLAN---suddenly a new source of
-interference begins to disrupt their network performance. Unfortunately this
-interfering terminal cannot be overheard at the access point (AP) they are
-associated with, but the AP can tell that Alice's and Bob's networking
+In addition, as Alice and Bob sit together in a campus cafe using the campus
+WLAN to surf the web---Alice on her tablet, Bob on his smartphone---suddenly
+a new source of interference begins to disrupt their network performance.
+Unfortunately this interfering terminal cannot be overheard at the AP they
+are associated with, but the AP can tell that Alice's and Bob's networking
 environment has degraded. At this point, it triggers the \PS{} app on Alice's
-smartphone to search for a less-congested channel and may move their laptops
-to a different channel, adjust its power level, or suggest they associate
-with a different campus AP, all without interrupting their web surfing.
+inactive smartphone to search for a less-congested channel. Based on the
+results \PS{} may move their active devices to a different channel, adjust
+the AP power level, or suggest they associate with a different campus AP, all
+without performing measurements on their active clients that could interrupt
+their web browsing. Without collecting measurements directly from Bob's
+smartphone, \PS{} is still able to exploit the proximity between Alice and
+Bob and use Alice's nearby inactive smartphone to estimate the impact of
+changes on Bob's active smartphone to ensure that any spectrum adaptation
+benefits both devices.
 
-Note that in this case Bob's smartphone did not participate in the network
-adaptation. Bob may not have had his device with him, may not have installed
-the \PS{} app, or may not have the network hardware required to perform the
-detailed channel utilization measurements necessary to enable this
-adaptation. Regardless of the reason, \PS{} is able to use Alice's nearby
-smartphone to estimate the impact of changes on Bob's laptop to ensure that
-any spectrum adaptation benefits both devices.
-
-Later, when Alice and Bob return home to neighboring apartments with
-overlapping home wireless networks, their competing networks use
-PocketSniffer measurements as inputs to perform cooperative spectrum
-allocation. Despite the lack of centralized control, their two networks
-jointly adapt to allocate spectrum in a way that improves performance for
-both Alice and Bob.
+Later, when Alice and Bob return home to neighboring apartments their
+overlapping home Wifi networks use \PS{} measurements as inputs to perform
+cooperative spectrum allocation. Despite the lack of centralized control,
+their two networks jointly adapt to allocate spectrum in a way that improves
+performance for both Alice and Bob.
 
 \subsection{Performing Measurements}
 \label{subsec-measurement}
 
-PocketSniffer collects two types of measurements from terminals---scan
-results and spectrum utilization information---in two different
-ways---asynchronously and synchronously.
+\PS{} collects two types of measurements from terminals---scan results and
+spectrum utilization information---in two different ways---asynchronously and
+synchronously.
 
-\subsubsection{Measurement types:\space} Scan results are inexpensive to
-collect and provide a high-level view of the network including visible APs
-and the signal strength computed from their beacon messages. Android
-smartphones already perform Wifi scans at regular intervals, even while
-associated with a Wifi network. Recovering this data incurs no energy
-overhead for clients as long as the measurements are not uploaded while the
-battery is discharging, and our recent analysis of \XXXnote{FIXME} scan
-results collected from \XXXnote{FIXME} smartphones over \XXXnote{FIXME} days
-has demonstrated the value of this data for network monitoring and debugging.
+\subsubsection{Measurement types}
+
+Scan results are inexpensive to collect and provide a high-level view of the
+network including visible APs and their signal strengths. Android smartphones
+already perform Wifi scans at regular intervals, even while associated with a
+Wifi network. Recovering this data incurs no energy overhead for clients as
+long as the measurements are only uploaded while the battery is charging, and
+our recent analysis of 89~million scan results collected from 139~smartphones
+over 5~months~\cite{conext14-pocketsniffer} has demonstrated the value of
+these measurements for network monitoring and debugging.
 
 However, because smartphones are frequently idle, periodic scans may not
 reflect either locations where users actually use their devices or locations
 where their devices use the network. To better connect Wifi scans with
 interactive usage and network activity, \PS{} annotates each scan with two
-pieces of information: (1) whether the scan was performed during
-\textit{interactive use} determined by the screen state, and (2) the
-timestamp since device's last data transfer, because not every interactive
-session includes Wifi usage and because smartphones perform background data
-transfers with the screen disabled.
+pieces of information: (1) whether the scan was performed during interactive
+use as estimated by the screen state, and (2) the timestamp since device's last
+data transfer, because not every interactive session includes Wifi usage and
+because smartphones perform background data transfers with the screen
+disabled.
 
 In contrast, spectrum utilization measurements are expensive to collect and
 may not be possible to collect on all clients, but provide a very detailed
@@ -78,44 +78,32 @@ upload is performed in an energy-neutral way. We discuss several research
 challenges caused by Wifi chipset heterogeneity in
 Section~\ref{sec-challenges}.
 
-\subsubsection{Asynchronous queries:\space} Asynchronous measurements are
-used to perform network monitoring and as a replacement for expensive site
-surveys in order to do spatial and temporal spectral capacity planning. For
-asynchronous queries the \PS{} app allows clients to publish measurements to
-a \textit{CANSAS subscription} set up by network administrators, each of
-which contains one or more \textit{queries} describing requested
-measurements. PocketSniffer's queries allow administrators to configure
-asynchronous data collection in the following ways, restricting the type of
-data collected, the devices that participate, APs to observe, and times
-during which to perform measurements. Pushing queries to clients allows \PS{}
-to limit the energy overhead of the measurement process, even for
-asynchronous queries when the data can most likely be collected during
-charging sessions.
+\subsubsection{Query types}
 
-Given that \PS{}'s goal is to avoid disturbing active terminals, care must be
-taken when scheduling asynchronous measurements. A clear tradeoff exists: the
-closer in time measurements are taken to periods of interactive use, the more
-representative they are of the spectrum conditions at locations where
-smartphones are used; at the same time, however, increasing temporal
-proximity makes measurements more likely to collide with the next period of
-interactive use. As a compromise, \PS{} adaptively schedules asynchronous
-data collection a varying amount of time after each interactive session. 
+Asynchronous measurements are used to perform network monitoring and as a
+replacement for expensive site surveys in order to do spatial and temporal
+spectral capacity planning. For asynchronous queries \PS{} allows clients to
+publish measurements to subscriptions set up by network administrators, each
+of which contains one or more queries describing requested measurements.
 
-\subsubsection{Synchronous queries:\space} To support fine-grained adaptation
-to changing spectrum conditions, \PS{} also supports synchronous queries.
-Unlike asynchronous queries---which are initiated by terminals, long-running,
-and satisfied in a delay-tolerant fashion---synchronous queries are are
-on-shot and initiated directly by APs. Synchronous queries share the
-asynchronous query format but also include a list of active terminals that
-\PS{} is requesting information about, which allows clients to determine
-whether to respond as described below. When associated to an AP included in a
-\PS{} subscription that the user has already joined, the \PS{} app will
-listen for synchronous queries sent by the AP over the WLAN on a dedicated
-port.
+\PS{}'s queries allow administrators to configure both asynchronous and
+synchronous data collection by restricting the type of data collected, the
+devices that participate, APs or active devices to observe, and times during
+which to perform measurements. Pushing queries to clients allows \PS{} to
+limit the energy overhead of the measurement process, even for asynchronous
+queries when the data can most likely be collected during charging sessions.
+\PS{} avoids disturbing active sessions by waiting to perform asynchronous
+data collection until a certain amount of time has elapsed since the last
+interactive session.
 
-When an asynchronous query arrives \PS{} clients can decide whether they
-should collect and return the requested measurements, a decision that is
-determined by several factors:
+To support both network monitoring and debugging on long timescales and
+adaptation on short timescales, \PS{} uses both synchronous and asynchronous
+queries. Asynchronous queries are configured by network administrators,
+long-running, and satisfied through delay-tolerant upload. Synchronous
+queries are initiated programmatically by APs, short-lived, and satisfied
+immediately by participating clients. When an asynchronous query arrives
+\PS{} clients can decide whether they should collect and return the requested
+measurements, a decision that is determined by several factors:
 
 \begin{itemize}
 
