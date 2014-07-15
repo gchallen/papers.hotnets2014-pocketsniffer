@@ -1,2 +1,52 @@
-\section{Coordination Algorithms}
+\section{Coordination Scenarios}
 \label{sec-algorithms}
+
+When performing network adaptation \PS{} is designed to support multiple
+different coordination patterns between clients sharing the same WLAN and
+between overlapping WLANs. In all cases \PS{} algorithms utilize crowdsourced
+measurements from inactive smartphones to attempt to improve performance for
+active client by controlling AP channel assignments, client associations, and
+AP power levels and transmission rates. Depending on the scenario, clients
+may behave selfishly or provide incorrect data in hopes of either avoiding
+the energy overhead of performing measurements or improving their own network
+performance at the expense of others.
+
+We are using \PS{} to explore several different CANSAS coordination
+algorithms including maximization and game-theoretic approaches designed to
+enable cooperation in each of the following common scenarios. Because we are
+still determining which algorithms work best at achieving the objectives
+appropriate to each scenario, we focus the discussion below on describing the
+objective and the associated challenges.
+
+\subsection{Single Network, Cooperative Clients}
+
+In the first case a single network serves a set of clients which are
+cooperative in the sense that they are willing to work together to achieve a
+single common objective. Thus, \PS{} can assume that clients are willing to
+provide truthful measurements. Typical home Wifi networks serving multiple
+mobile devices fall into this category. Because clients are cooperative and a
+global objective is shared, this scenario lends itself to the simplest
+coordination algorithms. One example uses \PS{} measurements to select a set
+of network parameters maximizing the aggregate throughput of all clients; a
+modified version maximizes the throughput only of interactive clients, under
+the assumption that traffic to non-interactive devices can be assigned a
+lower priority.
+
+\subsection{Single Network, Selfish Clients}
+
+In the second case a single network serves a set of clients each of which
+wishes to maximize its own performance. Typical enterprise Wifi networks fall
+into this category. This scenario presents two new complications compared
+with the previous one. First, we must formulate a notion of social utility
+balancing both performance and fairness. Second, \PS{} cannot assume that
+clients are willing to provide truthful measurements. They may intentionally
+mislead the system to try to improve their own performance at the expense of
+other clients, or attempt to avoid the energy overhead of performing required
+measurements. We are addressing these challenges in two ways, both by
+designing mechanisms that incentivize clients to perform accurate
+measurements and by utilizing \PS{}'s control of the network APs to validate
+measurements reported by clients.
+
+\subsection{Multiple Networks, Cooperative Clients}
+
+\subsection{Multiple Networks, Selfish Clients}
