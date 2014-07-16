@@ -79,8 +79,10 @@ the number of devices that ever exchange data frames with them.
 \begin{figure}[t!]
   \centering
   \includegraphics[width=0.48\textwidth]{./figures/RAPTrafficGraph.pdf}
-  \caption{Rogue AP traffic detected by sniffer device.}
+  \vspace*{-0.1in}
+  \caption{Measured Bandwidth to Rogue APs.}
   \label{fig:rap}
+  \vspace*{-0.1in}
 \end{figure}
 
 Among these 15~RAPs \texttt{AP1}~and~\texttt{AP2}\footnote{These two AP SSIDs
@@ -112,19 +114,24 @@ is periodically retrieving channel utilization statistics from the sniffer
 device it can react to the interference by determining which other available
 channel is the least congested. All of this happens without disturbing $D_1$
 which continues transferring data. All devices in this experiment are using
-802.11g at 2.4GHz band. 
+802.11g at 2.4GHz band. In the particular run shown in Figure~\ref{fig:bw},
+from 0--8.5~s $A$ and $D_1$ establish stable UDP traffic on channel 11.
 
-In the particular run shown in Figure~\ref{fig:bw}, from 0--8.5~s $A$ and
-$D_1$ establish stable UDP traffic on channel 11. When $D_2$ starts jamming
-the channel at 8.5~s the link bandwidth between $A$ and $D_1$ decreases and
-begins to fluctuate. At 75~s, when $A$ and $D_1$ switch to a less congested
-channel (1), the bandwidth resumes to the level obtained before the
-interference began.
+When $D_2$ starts jamming the channel at 8.5~s the link bandwidth between $A$
+and $D_1$ decreases and begins to fluctuate. At 75~s, when $A$ and $D_1$
+switch to a less congested channel (1), the bandwidth resumes to the level
+obtained before the interference began. The latency between the onset of the
+interference and the channel switch is due to several factors, including the
+time required for the AP to initiate measurements, the time required to
+perform the measurements, and the time required to transmit measurements to
+the AP, all of which can be easily reduced in future prototypes.
 
 \begin{figure}[t!]
   \centering
-  \includegraphics[width=0.48\textwidth]{./figures/ChannelBWGraph.pdf}
+  \includegraphics[width=0.8\columnwidth]{./figures/ChannelBWGraph.pdf}
+  \vspace*{-0.1in}
   \caption{Bandwidth between $A$ and $D_1$ after jamming (8.5s) and
   channel switching (75s).}
   \label{fig:bw}
+  \vspace*{-0.1in}
 \end{figure}
