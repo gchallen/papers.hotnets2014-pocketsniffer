@@ -1,54 +1,46 @@
 \section{Introduction}
 
-The rapid proliferation of smartphones represents both a challenge and an
-opportunity for wireless spectrum allocation. On one hand, smartphones are
-competing for the same limited spectrum already crowded with other devices.
-On the other hand, the growing network of mobile, always-on smartphones
-constitutes an unprecedented new source of detailed measurements of spectrum
-usage and availability. In addition, because smartphones are always on but
-idle much of the time, they are in a unique position to provide measurements
-about \textit{other} nearby active wireless devices---such as laptops,
-tablets, or other smartphones---meaning that measurements can be performed
-passively without disturbing devices actively using the spectrum, a
-capability that has not been exploited by other systems designed to
-incorporate client-side feedback into spectrum allocation. This type of
-measurement also improves on existing approaches that use periodic planned
-site surveys, since the data they provide is neither continuous nor
-representative of the experience of actual network users.
+The rapid proliferation of smartphones creates both challenges and new
+opportunities for wireless networks. On one hand, smartphones compete for the
+same limited spectrum already crowded with other devices. On the other hand,
+the growing network of mobile, always-on smartphones constitutes an
+unprecedented new source of detailed network measurements. Because
+smartphones are \textit{always on} but \textit{mostly idle}, they are ideal
+for observing other nearby active wireless devices---such as laptops,
+tablets, or other smartphones. When used for continuous network adaptation,
+offloading measurements from active to inactive clients allows data
+collection to avoid disturbing active sessions, a capability that has not
+been exploited by other systems using client-side feedback. When used for
+network monitoring and debugging, measurements from mobile smartphones
+provide more valuable data than approaches such as planned site surveys,
+since the data that smartphones provide is continuous and representative of
+the wireless conditions experienced by actual network users while surveys are
+neither. We refer to these approaches collectively as \textbf{c}rowdsourcing
+\textbf{a}ccess \textbf{n}etwork \textbf{s}pectrum \textbf{a}llocation using
+\textbf{s}martphones, or \textbf{CANSAS}.
 
-As an example of the type of spectrum adaptation smartphones can enable, as a
-user engages with their laptop their smartphone is nearby and capable of
-helping the laptop improve its usage of the spectrum by scanning other
-channels and determining whether both the client and access point should move
-to a different, less-congested portion of the spectrum. Measurements from
-passive smartphones can also improve the wireless performance of other users:
-as a second example, as one user engages with their smartphone, the
-smartphone of a second user sitting nearby may be inactive and able and
-willing to perform measurements. Smartphones can also provide continuous
-observations of wireless performance to help providers provision and maintain
-their networks. We refer to these approaches collectively as
-\textbf{c}rowdsourcing \textbf{a}ccess \textbf{n}etwork \textbf{s}pectrum
-\textbf{a}llocation using \textbf{s}martphones, or \textbf{CANSAS}.
-
-\sloppypar{Realizing CANSAS requires novel integration between smartphones, an adaptive
-network, and algorithms enabling cooperative spectrum allocation on both
-short and long timescales. This paper describes a prototype system
-implementing CANSAS for Wifi networks called \PS{}. \PS{} uses a
-publish-subscribe architecture to perform both asynchronous and synchronous
-measurement collection from passive smartphones and use collected data to
-improve the performance of active clients. Measurements are used as inputs to
-new algorithms---including game-theoretic approaches---that perform joint
-channel assignment, power control, rate selection, and transmission
-scheduling to improve spectrum efficiency assuming a variety of different
-network structures, including both fully-cooperative settings and cases where
-multiple independently-administered networks compete for the local spectrum
-resources. These scenarios are representative of both typical home and
-corporate Wifi deployments. \PS{} measurements are also provided to network
-administrators in order to perform long-term monitoring and network
-maintenance. \PS{} provides a platform for testing these new
-algorithms and determining how to incentivize client measurement collection,
-assuring that collected measurements are accurate, and minimizing the energy
-overhead for participating devices.}PocketSniffer 
+\sloppypar{Realizing CANSAS requires novel integration between smartphones,
+an adaptive network, and algorithms enabling cooperative spectrum allocation
+on both short and long timescales. This paper describes a prototype system
+implementing CANSAS for Wifi networks called \PS{}. \PS{} uses a pub-sub
+architecture to perform both asynchronous and synchronous data collection
+from passive smartphones and use collected measurements to improve the
+performance of active clients. Synchronous measurements are used as inputs to
+new algorithms---including game-theoretic approaches---that can alter channel
+assignments, control AP power levels and rate selection, and alter client
+associations in order to improve spectrum efficiency. \PS{} allows different
+algorithms to be deployed to support a variety of different network
+structures, including both fully-cooperative settings and cases where
+multiple independently-administered networks overlap and compete for the
+local spectrum resources, scenarios representative of both typical home and
+corporate Wifi deployments. Asynchronous measurements are provided to network
+administrators in order to perform long-term monitoring, network maintenance,
+and capacity planning. Realizing the \PS{} system, however, requires
+addressing a set of open research challenges, including determining how to
+incentivize client measurements, ensure that data provided by clients is
+accurate, reduce and ensure fairness in the energy consumed by the
+measurement process, and deal with significant variation in the measurement
+capabilities across different smartphone models.
 
 The rest of this paper is structured as follows. We begin by describing how
 using passive smartphones improves on previous client-side measurement
