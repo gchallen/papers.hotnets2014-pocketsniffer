@@ -1,18 +1,29 @@
 \section{Preliminary Results}
 \label{sec-results}
 
-\XXXnote{Should we first mention scan results analysis here?}
+As mentioned previously, we have performed a detailed analysis of 89~million
+scan results collected from 139~smartphones over 5~months in order to
+validate the usefulness of these measurements already being collected by
+smartphones\footnote{This work is under concurrent submission.}. Encouraged
+by these results, we have built both a prototype \PS{} system including both
+an Android smartphone app and adaptive AP. Because we have already explored
+asynchronous analyses that can be performed using scan results, our
+preliminary results below focus on what additional offline analyses can be
+done with more detailed channel utilization information
+(\S\ref{subsec-rogue}) and on a basic form of online channel adaptation
+(\S\ref{subsec-channel}).
 
-To collect spectrum utilization information, Wifi cards needs to be put in
-monitor mode so that every decoded packet is delivered to upper layer.  However,
-almost none of current smartphone hardwares support monitor mode, at
-least without firmware and driver hacking~\cite{bcmon}. To mitigate this
-limitation, we use external Wifi dongle to mimic future smartphone hardwares
-with built-in monitor mode support. Table~\ref{tab:dongle} shows the
-specification of the Wifi dongle used in our experiments. The dongle is
-connected to smartphone (Galaxy Nexus) through OTG\footnote{OTG(On-The-Go) cable
-enables smartphones acting as USB host.} cable. We refer a smartphone
-with Wifi dongle as \textit{sniffer device} hereafter.
+To collect detailed channel utilization information, Wifi cards needs to be
+put in monitor mode so that every decoded packet is delivered to upper
+layer---not just ones addressed to the client itself. Unfortunately, few
+smartphone Wifi chipsets currently support this feature out of the
+box\footnote{In some cases monitor mode support can be achieved by modifying
+the firmware or device driver~\cite{bmon}.}, a challenge we return to in
+Section~\ref{sec-challenges}. As a work around allowing us to explore the
+potential inclusion of this feature on next-generation smartphone devices, we
+equipped several Galaxy Nexus~\cite{galaxynexus} smartphones with external
+Wifi dongles that include chipsets that can be put into monitor mode.
+Table~\ref{tab:dongle} describes the Wifi dongle used in our experiments.
 
 \begin{table}[t!]
   \centering
@@ -31,6 +42,7 @@ with Wifi dongle as \textit{sniffer device} hereafter.
 
 
 \subsection{Rogue Access Point}
+\label{subsec-rogue}
 
 Rogue Access Point (RAP) are unauthorized APs that connected to secure corporate
 network. They pose security vulnerabilities as well as undesired Radio Frequency
@@ -72,7 +84,7 @@ that are secured and only used by the owner.
 
 
 \subsection{Channel Assignment}
-
+\label{subsec-channel}
 
 To demonstrate the feasibility of using client-side measurements to improve
 channel assignment, we built an concept-proof system, where a sniffer device,
