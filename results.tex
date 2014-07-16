@@ -13,7 +13,7 @@ what additional offline analyses can be done with more detailed channel
 utilization information (\S\ref{subsec-rogue}) and on a basic form of online
 channel adaptation (\S\ref{subsec-channel}).
 
-To collect detailed channel utilization information, Wifi cards needs to be
+To collect detailed channel utilization information, Wifi cards need to be
 put in monitor mode so that every decoded packet is delivered to upper
 layer---not just ones addressed to the client itself. Unfortunately, few
 smartphone Wifi chipsets currently support this feature out of the
@@ -86,7 +86,7 @@ the number of devices that ever exchange data frames with them.
 \end{figure}
 
 Among these 15~RAPs \texttt{AP1}~and~\texttt{AP2}\footnote{These two AP SSIDs
-have been changed for blind review} are both operated by one of the
+have been changed for blind review.} are both operated by one of the
 coauthors. \texttt{AP1} is unsecured which likely accounts for its higher
 traffic volume and larger number of users, as it is available to users that
 may not be able to authenticate to the campus network. \texttt{AP2} is
@@ -107,7 +107,7 @@ measurements from all available channels from the sniffer and uses the data
 to determine the least-congested channel.
 
 The experiment is designed as follows. We first set up a constant
-\texttt{iperf} UDP traffic between \PS{}-AP $AP$ and device $D_1$ on channel
+\texttt{iperf} UDP session between \PS{}-AP $AP$ and device $D_1$ on channel
 $C_1$. Then another device $D_2$ starts jamming the channel using UDP traffic
 to simulate a new and serious source of interference. However, because the AP
 is periodically retrieving channel utilization statistics from the sniffer
