@@ -17,39 +17,37 @@ experienced by users while surveys are neither. We refer to these approaches
 collectively as \textbf{c}rowdsourcing \textbf{a}ccess \textbf{n}etwork
 \textbf{s}pectrum \textbf{a}llocation using \textbf{s}martphones, or
 \textbf{CANSAS}.}
-
+\newpage
 Realizing CANSAS requires novel integration between smartphones and an
 adaptive network, along with new algorithms enabling cooperative spectrum
 allocation on both short and long timescales. This paper describes a
 prototype system implementing CANSAS for Wifi networks called \PS{}.
 Implemented as a smartphone app, \PS{} is straightforward to deploy. It uses
 a pub-sub architecture to collect data from passive smartphones and use
-measurements to improve network performance. \PS{} also allows the many
-measurements made naturally by smartphones as they travel between Wifi
-networks and negotiate connections to be recovered, valuable data that today
-is simply discarded.
+measurements to improve network performance. \PS{} also captures the large
+number of measurements made naturally by smartphones to discover and connect
+to networks, valuable data that is currently discarded.
 
 To enable short-term adaptation measurements are triggered by and used as
-inputs to new algorithms---including game-theoretic approaches---that can
-alter channel assignments, control AP power levels and rate selection, and
-alter client associations in order to improve network performance and
-allocate available spectrum more effectively. \PS{} allows different
-algorithms to be deployed to support a variety of different network
-structures, including both fully-cooperative settings and cases where
+inputs to new algorithms that can alter channel assignments, control AP power
+levels and rate selection, and alter client associations in order to improve
+network performance and allocate available spectrum more effectively. \PS{}
+allows different algorithms to be deployed to support a variety of different
+network structures, including both fully-cooperative settings and cases where
 multiple networks overlap and compete for the local spectrum resources,
 scenarios representative of both typical home and enterprise Wifi
 deployments. To enable long-term adaptation measurements are provided to
 network administrators in order to perform network monitoring, maintenance,
 and capacity planning. Realizing \PS{}, however, requires addressing a set of
 open research challenges: determining how to incentivize client measurements,
-ensuring that data provided by clients is accurate, ensuring fairness in the
-energy consumed by the measurement process, and dealing with variation in the
-measurement capabilities between different smartphone models.
+ensuring that client measurements are accurate, ensuring fairness in the
+energy consumed by the measurement process, and dealing with differences in
+smartphone wireless measurement capabilities.
 
 The rest of this paper is structured as follows. Section~\ref{sec-design}
-describes the design of the data collection portions of \PS{} while
-Section~\ref{sec-algorithms} describes algorithms using \PS{} measurements to
-perform cooperative network adaptation to support several common deployment
-scenarios. We continue by presenting results from a prototype \PS{} system in
-Section~\ref{sec-results} before discussing open challenges in
-Section~\ref{sec-challenges} and concluding in Section~\ref{sec-conclusions}.
+describes the design of \PS{} while Section~\ref{sec-algorithms} describes
+algorithms using \PS{} data to perform cooperative network adaptation to
+support several common deployment scenarios. We continue by presenting
+results from a prototype \PS{} system in Section~\ref{sec-results} before
+discussing open challenges in Section~\ref{sec-challenges} and concluding in
+Section~\ref{sec-conclusions}.
