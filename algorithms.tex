@@ -28,9 +28,8 @@ mobile devices fall into this category. Because clients are cooperative and a
 global objective is shared, this scenario lends itself to the simplest
 coordination algorithms. One example uses \PS{} measurements to select a set
 of network parameters maximizing the aggregate throughput of all clients; a
-modified version maximizes the throughput only of interactive clients, under
-the assumption that traffic to non-interactive devices can be assigned a
-lower priority.
+variant prioritizes interactive sessions by only maximizing throughput to
+interactive clients.
 
 \subsection{Single Network, Selfish Clients}
 
@@ -41,11 +40,11 @@ with the previous one. First, we must formulate a notion of social utility
 balancing both performance and fairness. Second, \PS{} cannot assume that
 clients are willing to provide truthful measurements. They may intentionally
 mislead the system to try to improve their own performance at the expense of
-other clients, or attempt to avoid the energy overhead of performing required
+other clients, or attempt to avoid the energy overhead of performing
 measurements. We are addressing these challenges in two ways, both by
 designing mechanisms that incentivize clients to perform accurate
 measurements and by utilizing \PS{}'s control of the network APs to validate
-measurements reported by clients.
+client measurements.
 
 \subsection{Multiple Networks, Cooperative Clients}
 

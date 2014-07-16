@@ -20,7 +20,7 @@ underutilized, and for other network monitoring and debugging purposes.
 In addition, as Alice and Bob sit together in a campus cafe using the campus
 WLAN to surf the web---Alice on her tablet, Bob on his smartphone---suddenly
 a new source of interference begins to disrupt their network performance.
-Unfortunately this interfering terminal cannot be overheard at the AP they
+Unfortunately this interfering client cannot be overheard at the AP they
 are associated with, but the AP can tell that Alice's and Bob's networking
 environment has degraded. At this point, it triggers the \PS{} app on Alice's
 inactive smartphone to search for a less-congested channel. Based on the
@@ -42,7 +42,7 @@ performance for both Alice and Bob.
 \subsection{Performing Measurements}
 \label{subsec-measurement}
 
-\PS{} collects two types of measurements from terminals---scan results and
+\PS{} collects two types of measurements from clients---scan results and
 spectrum utilization information---in two different ways---asynchronously and
 synchronously.
 
@@ -70,7 +70,7 @@ disabled.
 In contrast, spectrum utilization measurements are expensive to collect and
 may not be possible to collect on all clients, but provide a very detailed
 view of spectrum usage. The ability of Wifi chipsets to observe link-layer
-signaling traffic and packets sent by other terminals varies from device to
+signaling traffic and packets sent by other devices varies from device to
 device, and because these measurements require disabling the power-save mode
 used by mobile Wifi chipsets they consume extra energy even if measurement
 upload is performed in an energy-neutral way. We discuss several research
@@ -109,13 +109,13 @@ measurements, a decision that is determined by several factors:
 \item \textbf{Usage status.} Because the goal of \PS{} is to avoid disturbing
 active sessions active clients will ignore synchronous queries.
 
-\item \textbf{Relationships between terminals.} \PS{} allows users to
+\item \textbf{Relationships between devices.} \PS{} allows users to
 configure their app to always return data about other devices that they own.
-Relationships between terminals can be manually configured through the app,
+Relationships between devices can be manually configured through the app,
 or a list of other devices associated with a given user can be retrieved from
 the \PS{} service to assist this process.
 
-\item \textbf{Proximity to active terminals.} \PS{} clients must determine
+\item \textbf{Proximity to active clients.} \PS{} clients must determine
 whether they can provide measurements approximating the network conditions
 experience by the active clients included in the query. We return to the
 challenge of proximity detection and the question of whether to perform
@@ -129,7 +129,7 @@ Section~\ref{sec-challenges}.
 
 \end{itemize}
 
-If the terminal decides to participate in the synchronous query, it performs
+If the client decides to participate in the synchronous query, it performs
 the measurements and sends them directly to the AP. Note that if measurements
 made to satisfy synchronous queries also match existing asynchronous queries,
 they will also be uploaded to the PocketSniffer subscription by the AP.
