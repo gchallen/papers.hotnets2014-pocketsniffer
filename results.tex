@@ -1,6 +1,8 @@
 \section{Preliminary Results}
 \label{sec-results}
 
+\XXXnote{Should we first mention scan results analysis here?}
+
 To collect spectrum utilization information, Wifi cards needs to be put in
 monitor mode so that every decoded packet is delivered to upper layer.  However,
 almost none of current smartphone hardwares support monitor mode, at
@@ -8,7 +10,8 @@ least without firmware and driver hacking~\cite{bcmon}. To mitigate this
 limitation, we use external Wifi dongle to mimic future smartphone hardwares
 with built-in monitor mode support. Table~\ref{tab:dongle} shows the
 specification of the Wifi dongle used in our experiments. The dongle is
-connected to smartphone (Galaxy Nexus) through OTG cable. We refer a smartphone
+connected to smartphone (Galaxy Nexus) through OTG\footnote{OTG(On-The-Go) cable
+enables smartphones acting as USB host.} cable. We refer a smartphone
 with Wifi dongle as \textit{sniffer device} hereafter.
 
 \begin{table}[t!]
@@ -70,6 +73,7 @@ that are secured and only used by the owner.
 
 \subsection{Channel Assignment}
 
+
 To demonstrate the feasibility of using client-side measurements to improve
 channel assignment, we built an concept-proof system, where a sniffer device,
 when connected to \PS{}-enabled APs, will periodically collect
@@ -78,7 +82,7 @@ server on top of custom firmware, periodically selects the least congested
 channel base on all associated client's measurements.
 
 The experiment is designed as follows. We first set up a constant \texttt{iperf}
-UDP traffic at 15 Mbps between \PS{}-AP $A$ and sniffer device $D_1$ on channel
+UDP traffic between \PS{}-AP $A$ and sniffer device $D_1$ on channel
 $C_1$. Then another device, $D_2$, starts jamming the channel by sending
 saturated UDP traffic. Since $D_1$ periodically collects and reports traffic
 information, $A$ will eventually realize this interference from $D_2$ and find
