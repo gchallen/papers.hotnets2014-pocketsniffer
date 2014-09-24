@@ -1,38 +1,25 @@
 \input{./include/start.tex}
 
-\ifdefined\isdraft
-  \usepackage{draftwatermark}
-  \SetWatermarkText{Under Submission}
-  \SetWatermarkScale{0.6}
-  \usepackage{fancyhdr}
-  \pagestyle{fancy}
-  \renewcommand{\headrulewidth}{0pt}
-  \lhead{}
-  \chead{Under Submission to HotNets'14. Do not distribute.}
-  \rhead{}
-\else
-\fi
-
 \begin{document}
 
-\def\thetitle{Crowdsourcing Access Network Spectrum Allocation Using
-Smartphones}
+\category{C2.3}{Network Operations}{Network management}
+\terms{Management, Performance}
+\keywords{Smartphones, 802.11, channel assignment, monitoring}
+\conferenceinfo{HotNets}{HotNets-XIII, October 27 - 28 2014, Los Angeles, CA, USA}
+\CopyrightYear{2014}
+\crdata{978-1-4503-3256-9/14/10}
+
+\def\thetitle{Crowdsourcing Access Network Spectrum Allocation Using Smartphones}
 \title{\thetitle\vspace*{-1mm}}
 
-\date{}
-
-\numberofauthors{2}
 \author{%
-  Jinghao Shi, Chunming Qiao,\\
-  Dimitrios Koutsonikolas, Geoffrey Challen\\
-  \affaddr{Department of Computer Science and Engineering}\\
-  \affaddr{University at Buffalo}\\
-  \email{\{jinghaos,qiao,dimitrio,challen\}@buffalo.edu}
-  \and
-  Zhangyu Guan, Tommaso Melodia\\\\
-  \affaddr{Department of Electrical Engineering}\\
-  \affaddr{University at Buffalo}\\
-  \email{\{zguan2,tmelodia\}@buffalo.edu}
+  Jinghao Shi$^\dag$, Zhangyu Guan$^\dag^\S$, Chunming Qiao$^\dag$, Tommaso
+  Melodia$^\S$\\ Dimitrios Koutsonikolas$^\dag$ and Geoffrey Challen$^\dag$\\
+  \begin{tabular}{cc}
+    $^\dag$University at Buffalo & $^\S$Northeastern University \\
+    $^\dag$\email{\{jinghaos,zguan2, qiao,dimitrio,challen\}@buffalo.edu} &
+    $^\S$\email{melodia@ece.neu.edu}
+  \end{tabular}
 }
 \hypersetup{
   pdfinfo={
@@ -41,32 +28,15 @@ Smartphones}
     Challen}
   },
 }
-\hypersetup{
-  pdfinfo={
-    Title={\thetitle},
-  },
-}
-\fi
-
-\CopyrightYear{2014}
-\crdata{}
 
 \maketitle
 
-\ifdefined\isblue
-\begin{textblock}{1}(6.4,0)
-\noindent\href{http://blue.cse.buffalo.edu}{\includegraphics[width=0.6in]{./figures/logos/blue.jpg}}
-\end{textblock}
-\fi
-
 \input{abstract.tex}
 \input{introduction.tex}
-
 \input{design.tex}
 \input{algorithms.tex}
 \input{results.tex}
 \input{challenges.tex}
-
 \input{conclusion.tex}
 
 \newpage
@@ -75,5 +45,4 @@ Smartphones}
 \bibliographystyle{acm}
 \bibliography{references}
 }
-
 \end{document}
