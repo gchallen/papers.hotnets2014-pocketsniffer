@@ -1,2 +1,24 @@
-\section{Related Works}
+\section{Related Work}
 \label{sec:related}
+
+Using client side measurement to either monitoring or reconfigure wireless
+networks has received a lot of attentions in recent years. Mishra \textit{et al.}
+proposed to collect client-side measurements called \textit{site-report}, which
+contains the client's visibility to near-by APs or devices. These information
+are then used in determining AP channel
+assignment~\cite{mishra:mccr2005,dasilva:mswim2008,mishra:mobicom2006}, or joint
+channel assignment and terminal association~\cite{mishra:infocom2006}. Sen
+\textit{et al.} proposed to use mobile devices to measure and improve the performance of
+wide-area cellular networks~\cite{sen2011can}. Finally, RadioMap~\cite{radiomap}
+is a project at DARPA which aims to provide realtime awareness of radio spectrum
+using idle radios equipments.
+
+Our proposed approach differs from existing ones in follow aspects. First, we
+identify smartphones as an ideal vantage point for both long-term network
+monitoring and short-term network reconfiguration purpose, due to its
+\textit{always on } and \textit{mostly idle} nature. Second, we distinguish
+between active and passive clients and propose to only collects measurements
+from passive clients, and exploit device proximity detection to jointly optimize
+network performance for both.  Third, we consider incentives for clients to
+provide measurement data and also validations of clients' measurements, which
+are missing in previous works.
