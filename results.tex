@@ -4,8 +4,7 @@
 As mentioned previously, we have performed a detailed analysis of 89~million
 scan results collected from 139~smartphones over 5~months in order to
 validate the usefulness of these measurements already being collected by
-smartphones\footnote{This work is under concurrent
-submission~\cite{conext14-pocketsniffer}.}. Encouraged by these results, we
+smartphones~\cite{conext14-pocketsniffer}. Encouraged by these results, we
 have built a prototype \PS{} system including both an Android smartphone app
 and adaptive AP. Because we have already explored asynchronous analyses that
 can be performed using scan results, our preliminary results below focus on
@@ -29,7 +28,6 @@ Table~\ref{tab:dongle} describes the Wifi dongle used in our experiments.
   \centering
   \caption{Wifi dongle specification.}
   \label{tab:dongle}
-  \vspace*{3mm}
   \begin{tabular}{ll}
     \toprule
     \textbf{Model} & ALFA Network AWUS036H \\
@@ -39,6 +37,7 @@ Table~\ref{tab:dongle} describes the Wifi dongle used in our experiments.
     \textbf{Wifi Support} & 802.11b/g \\
     \bottomrule
   \end{tabular}
+  \vspace{-3mm}
 \end{table}
 
 
@@ -79,10 +78,10 @@ the number of devices that ever exchange data frames with them.
 \begin{figure}[t!]
   \centering
   \includegraphics[width=0.48\textwidth]{./figures/RAPTrafficGraph.pdf}
-  \vspace*{-5mm}
+  \vspace*{-10mm}
   \caption{Measured Bandwidth to Rogue APs.}
   \label{fig:rap}
-  \vspace*{-3mm}
+  \vspace*{-4mm}
 \end{figure}
 
 Among these 15~RAPs \texttt{AP1}~and~\texttt{AP2} are both operated by one of the
@@ -132,5 +131,5 @@ the AP, all of which can be easily reduced in future prototypes.
   \caption{Bandwidth between $A$ and $D_1$ after jamming (8.5~s) and
   channel switching (75~s).}
   \label{fig:bw}
-  \vspace*{-3mm}
+  \vspace*{-1mm}
 \end{figure}
