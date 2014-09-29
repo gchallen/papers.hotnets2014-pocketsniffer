@@ -13,15 +13,15 @@ utilization information (\S\ref{subsec-rogue}) and on a basic form of online
 channel adaptation (\S\ref{subsec-channel}).
 
 To collect detailed channel utilization information, Wifi cards need to be
-put in monitor mode so that every decoded packet is delivered to upper
-layer---not just ones addressed to the client itself. Unfortunately, few
-smartphone Wifi chipsets currently support this feature out of the
-box\footnote{In some cases monitor mode support can be achieved by modifying
-the firmware or device driver~\cite{bcmon}.}, a challenge we return to in
-Section~\ref{sec-challenges}. As a work around allowing us to explore the
-potential inclusion of this feature on next-generation smartphone devices, we
+put in monitor mode so that every packet is delivered to upper layer---not
+just ones addressed to the client. Unfortunately, few smartphone Wifi
+chipsets currently support this feature out of the box\footnote{In some cases
+monitor mode support can be achieved by modifying the firmware or device
+driver~\cite{bcmon}.}, a challenge we return to in
+Section~\ref{sec-challenges}. As a workaround allowing us to explore the
+potential inclusion of this feature on next-generation smartphones, we
 equipped several Galaxy Nexus~\cite{galaxynexus} smartphones with external
-Wifi dongles that include chipsets that can be put into monitor mode.
+Wifi dongles including chipsets supporting monitor mode.
 Table~\ref{tab:dongle} describes the Wifi dongle used in our experiments.
 
 \begin{table}[t!]
@@ -37,10 +37,9 @@ Table~\ref{tab:dongle} describes the Wifi dongle used in our experiments.
     \bottomrule
   \end{tabular}
 }
-  \vspace*{-0.1in}
   \caption{\textbf{Wifi dongle specification.}}
   \label{tab:dongle}
-  \vspace*{-0.2in}
+  \vspace*{-0.1in}
 \end{table}
 
 
@@ -77,16 +76,6 @@ total traffic volume (both down and up link) by summing up the length of all
 data frames. Figure~\ref{fig:rap} shows 15 RAPs with most traffic, as well as
 the number of devices that ever exchange data frames with them.
 
-
-\begin{figure}[t!]
-  \centering
-  \includegraphics[width=\columnwidth]{./figures/RAPTrafficGraph.pdf}
-  \vspace*{-4mm}
-  \caption{\textbf{Measured Bandwidth to Rogue APs.}}
-  \label{fig:rap}
-  \vspace{-3mm}
-\end{figure}
-
 Among these 15~RAPs \texttt{AP1}~and~\texttt{AP2} are both operated by one of the
 coauthors. \texttt{AP1} is unsecured which likely accounts for its higher
 traffic volume and larger number of users, as it is available to users that
@@ -97,6 +86,18 @@ coverage could be improved. Other RAPs, such as \texttt{Parkhaven-Olewnik}
 and \texttt{26capemay}, also generated large traffic volume yet all of them
 are with one device, indicating personal RAPs that are secured and only used
 by the owner.
+
+\newpage
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{./figures/RAPTrafficGraph.pdf}
+  \vspace*{-4mm}
+  \caption{\textbf{Measured Bandwidth to Rogue APs.}}
+  \label{fig:rap}
+  \vspace{-3mm}
+\end{figure}
+
 
 \subsection{Channel Assignment}
 \label{subsec-channel}
@@ -123,11 +124,11 @@ and $D_1$ decreases and begins to fluctuate. At 75~s, when $A$ and $D_1$
 switch to a less congested channel (1), the bandwidth resumes to the level
 obtained before the interference began. The latency between the onset of the
 interference and the channel switch is due to several factors, including the
-time required for the AP to initiate measurements, the time required for the
-device to perform the measurements, and the time required to transmit measurements to
-the AP, all of which can be easily reduced in future prototypes.
+time required for the AP to initiate measurements, for the device to perform
+the measurements, and for the device to transmit measurements to the AP, all
+of which can be easily reduced in future prototypes.
 
-\begin{figure}[t!]
+\begin{figure}[t]
   \centering
   \vspace*{-1.3mm}
   \includegraphics[width=\columnwidth]{./figures/ChannelBWGraph.pdf}
