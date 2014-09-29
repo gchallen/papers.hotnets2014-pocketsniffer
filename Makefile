@@ -1,6 +1,6 @@
 START = xxxnote nodraft noblue
 END = missing
-CLASS = $(PYTEX)/cls/sig-alternate.cls
+CLASS = $(PYTEX)/cls/sig-alternate-tight-10pt.cls
 
 all: paper ABSTRACT
 

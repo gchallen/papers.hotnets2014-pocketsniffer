@@ -37,7 +37,7 @@ Later, when Alice and Bob return home to neighboring apartments their
 overlapping home Wifi networks use \PS{} measurements as inputs to perform
 cooperative spectrum allocation. Despite the lack of centralized control,
 their two networks jointly adapt to allocate spectrum in a way that improves
-performance for both Alice and Bob.
+performance for both users.
 
 \subsection{Performing Measurements}
 \label{subsec-measurement}
@@ -90,7 +90,7 @@ synchronous data collection by restricting the type of data collected, the
 devices that participate, APs or active devices to observe, and times during
 which to perform measurements. Pushing queries to clients allows \PS{} to
 limit the energy overhead of the measurement process, even for asynchronous
-queries when the data can most likely be collected during charging sessions.
+queries when the data can probably be collected during charging sessions.
 \PS{} avoids disturbing active sessions by waiting to perform asynchronous
 data collection until a certain amount of time has elapsed since the last
 interactive session.
@@ -113,14 +113,12 @@ active sessions active clients will ignore synchronous queries.
 configure their app to always return data about other devices that they own.
 Relationships between devices can be manually configured through the app,
 or a list of other devices associated with a given user can be retrieved from
-the \PS{} service to assist this process.
+the \PS{} service.
 
 \item \textbf{Proximity to active clients.} \PS{} clients must determine
 whether they can provide measurements approximating the network conditions
 experience by the active clients included in the query. We return to the
-challenge of proximity detection and the question of whether to perform
-proximity detection in signal or physical space in
-Section~\ref{sec-challenges}.
+challenge of proximity detection in Section~\ref{sec-challenges}.
 
 \item \textbf{Battery level.} Because \PS{} runs on energy-constrained
   devices clients are free to not participate if they are low on energy. The
