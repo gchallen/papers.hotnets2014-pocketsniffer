@@ -225,7 +225,7 @@
 \belowdisplayshortskip  5.4pt plus3pt minus3pt%
 \let\@listi\@listI     % Setting of \@listi added 9 Jun 87
 
-\def\small{\@setsize\small{10pt}\viiipt\@viiipt
+\def\small{\@setsize\small{9pt}\viiipt\@viiipt
 \abovedisplayskip 7.6pt plus 3pt minus 4pt%
 \belowdisplayskip \abovedisplayskip
 \abovedisplayshortskip \z@ plus2pt%
@@ -234,7 +234,7 @@
 \topsep 4pt plus 2pt minus 2pt\parsep 2pt plus 1pt minus 1pt
 \itemsep \parsep}}
 
-\def\footnotesize{\@setsize\footnotesize{10pt}\ixpt\@ixpt
+\def\footnotesize{\@setsize\footnotesize{9pt}\ixpt\@ixpt
 \abovedisplayskip 6.4pt plus 2pt minus 4pt%
 \belowdisplayskip \abovedisplayskip
 \abovedisplayshortskip \z@ plus 1pt%
@@ -325,10 +325,10 @@
 \newfont{\affaddr}{phvr8t at 10pt}
 \newfont{\affaddrit}{phvro8t at 10pt} % GM 2/4/2000
 \newfont{\eaddfnt}{phvr8t at 12pt}
-\newfont{\ixpt}{ptmr8t at 10pt}
+\newfont{\ixpt}{ptmr8t at 9pt}
 \newfont{\confname}{ptmri8t at 8pt}
 \newfont{\crnotice}{ptmr8t at 8pt}
-\newfont{\ninept}{ptmr8t at 10pt}
+\newfont{\ninept}{ptmr8t at 9pt}
 % +++++++++++++++++++++++++++++++++++++++++++++
 % -- End of block B --
 
@@ -664,7 +664,7 @@
 % to change {cmr} to {times} above. (Not recommended)
   \renewcommand{\@ptsize}{}
   \renewcommand{\normalsize}{%
-    \@setfontsize\normalsize\@ixpt{10.5\p@}%\ninept%
+    \@setfontsize\normalsize\@ixpt{12\p@}%\ninept%
     \abovedisplayskip 6\p@ \@plus2\p@ \@minus\p@
     \belowdisplayskip \abovedisplayskip
     \abovedisplayshortskip 6\p@ \@minus 3\p@
@@ -849,7 +849,7 @@
 \end@float}
 
 \def\@toappear{} % Default setting blank - commands below change this.
-\long\def\toappear#1{\def\@toappear{\parbox[b]{20pc}{\baselineskip 10pt#1}}}
+\long\def\toappear#1{\def\@toappear{\parbox[b]{20pc}{\baselineskip 9pt#1}}}
 \def\toappearbox#1{\def\@toappear{\raisebox{5pt}{\framebox[20pc]{\parbox[b]{19pc}{#1}}}}}
 
 \newtoks\conf
@@ -1374,19 +1374,19 @@
 \def\titlenote{\@ifnextchar[\@xtitlenote{\stepcounter\@mpfn
 \global\advance\titlenotecount by 1
 \ifnum\titlenotecount=1
-    \raisebox{10pt}{$\ast$}
+    \raisebox{9pt}{$\ast$}
 \fi
 \ifnum\titlenotecount=2
-    \raisebox{10pt}{$\dagger$}
+    \raisebox{9pt}{$\dagger$}
 \fi
 \ifnum\titlenotecount=3
-    \raisebox{10pt}{$\ddagger$}
+    \raisebox{9pt}{$\ddagger$}
 \fi
 \ifnum\titlenotecount=4
-\raisebox{10pt}{$\S$}
+\raisebox{9pt}{$\S$}
 \fi
 \ifnum\titlenotecount=5
-\raisebox{10pt}{$\P$}
+\raisebox{9pt}{$\P$}
 \fi
          \@titlenotetext
 }}
