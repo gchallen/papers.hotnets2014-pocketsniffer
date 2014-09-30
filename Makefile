@@ -1,6 +1,6 @@
 START = xxxnote nodraft noblue
 END = missing
-CLASS = $(PYTEX)/cls/sig-alternate-tight-10pt.cls
+CLASS = sig-alt-hotnetscr.cls
 
 all: paper ABSTRACT
 
