@@ -1377,11 +1377,18 @@
 \def\crdata#1{\global\acmcopyr{#1}}
 \def\permission#1{\global\boilerplate{#1}}
 %
-\global\boilerplate={Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page.  To copy otherwise, to republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee.}
+\global\boilerplate={Permission to make digital or hard copies of all or part of
+this work for personal or classroom use is granted without fee provided that
+copies are not made or distributed for profit or commercial advantage and that
+copies bear this notice and the full citation on the first page.  To copy
+otherwise, to republish, to post on servers or to redistribute to lists,
+requires prior specific permission and/or a fee. Request permissions from
+Permissions@acm.org.\vspace*{2mm}}
 \newtoks\copyrightetc
 \global\copyrightetc{Copyright \the\copyrtyr\ ACM \the\acmcopyr\ ...\$15.00}
 \toappear{\the\boilerplate\par    %% Adjusted for 10pt
-{\confname{\the\conf}} \the\confinfo\par \the\copyrightetc.}
+{\confname{\the\conf}} \the\confinfo\par
+\the\copyrightetc\\http://dx.doi.org/10.1145/2670518.2673866}
 %
 %% End of sig-alternate.cls -- V1.9 - 11/30/2006 --
 %% Gerry Murray -- Thurs. Nov. 30th. 2006
