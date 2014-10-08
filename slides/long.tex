@@ -1,6 +1,6 @@
 \section{Long Term Monitoring}
 
-\begin{frame}{Our Proposal: PocketSniffer}
+\begin{frame}{\PS{} at a Glance}
   \begin{figure}
     \centering
     \begin{tikzpicture}
@@ -25,16 +25,11 @@
   \huge\textbf{\ldots is Hard.}\normalsize
   \begin{block}{If you want to know}
     \begin{itemize}
-      \item Whether APs are alive? Easy\textendash SNMP\footnotemark.
+      \item Whether APs are alive? Easy\textendash SNMP.
       \item How APs are doing? Not so easy.
         \begin{itemize}
           \item \textbf{Client perceived} coverage and performance.
           \item Site surveys? Nay\ldots
-        \end{itemize}
-      \item Implication of "rogue" Access Points.
-        \begin{itemize}
-          \item Malicious? Easy, eliminate them all.
-          \item Am I not doing good enough? Not so easy.
         \end{itemize}
     \end{itemize}
   \end{block}
@@ -42,7 +37,6 @@
 
   \large
   Always on, mostly idle, capture real user experience.
-  \footnotetext[1]{Simple Network Management Protocol}
 \end{frame}
 
 \begin{frame}{Sounds Good. But\ldots}
@@ -54,86 +48,130 @@
       \end{itemize}
     \item \textbf{How} do we conduct and collect measurements?
       \begin{itemize}
-        \item When and what to collect?
-        \item Extra measurements needed?
+        \item What and When to collect?
       \end{itemize}
+    \item \Huge Does this even work?
   \end{itemize}
-  \begin{center}
-    \Huge Does this even work?
-  \end{center}
 \end{frame}
 
 \begin{frame}{Smartphone Capabilities}
-  \begin{block}{What smartphones can measure}
-    Network Health.
+    What are they already doing?\textendash Network Coverage.
     \begin{itemize}
       \item Wifi scan results (AP visibility and signal quality).
       \item Link quality.
     \end{itemize}
-    Network performance.
+    What can they potentially do?\textendash Network performance.
     \begin{itemize}
       \item Latency.
       \item Bandwidth.
     \end{itemize}
-  \end{block}
 \end{frame}
 
-\begin{frame}{How to Collect?}
-  Smartphones already perform \textbf{aggressive} network exploration.
-  \begin{block}{Analysis of PhoneLab Wifi Dataset }
+\begin{frame}{\PS{} Design}
+  \begin{block}{Principle}
     \begin{itemize}
-      \item 139 Android devices over 5 months (11/2013\textendash 4/2014).
+      \item Measurements should reflect user's real network experience.
+      \item Measurements should not compromise:
+      \begin{itemize}
+        \item User's interactive usage.
+        \item Device's battery life.
+      \end{itemize}
+  \end{itemize}
+  \end{block}
+  Smartphones already perform aggressive network exploration.
+  \begin{itemize}
+    \item Harvesting existing data\textendash take free ride!
+  \end{itemize}
+  Pay attention to user's \textit{network} activity.
+  \begin{itemize}
+    \item Trigger performance measurements near them.
+  \end{itemize}
+  Asynchronous energy-neutral data collection.
+  \begin{itemize}
+    \item Defer uploads to next charge.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Does it work?\textendash Case Studies}
+  Leverage PhoneLab, large scale smartphone testbed at UB.
+  \begin{columns}
+    \begin{column}{0.7\textwidth}
+      \vspace{-3mm}
+      \begin{table}
+        \centering
+        \small
+        \begin{tabular}{ccc}
+          \toprule
+          \textbf{Year} & \textbf{Device} & \textbf{Participant \#} \\\hline
+          2012\textendash2013 & Nexus S & 191 \\
+          2013\textendash2014 & Galaxy Nexus & 288 \\
+          2014\textendash2015 & Nexus 5 & 225\\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \vspace{-5mm}
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{phonelab_logo_black}
+        \caption{\small\url{www.phone-lab.org}}
+      \end{figure}
+    \end{column}
+  \end{columns}
+  \begin{block}{PhoneLab Wifi Dataset }
+    \begin{itemize}
+      \item 139 Android devices over 5 months (11/2013\textendash 3/2014).
       \item 88~M Wifi scan results, 300~K Wifi sessions.
     \end{itemize}
   \end{block}
-
-  \begin{columns}[t]
-    \begin{column}{0.48\textwidth}
-      \vspace{0pt}
-      \includegraphics[width=\textwidth]{scan_interval}
-    \end{column}%
-    \begin{column}{0.52\textwidth}
-      \vspace{0pt}
-      \begin{itemize}
-        \item 80\% of scan intervals $<$ 1 min.
-        \item Take the free ride!
-      \end{itemize}
-      Performance measurement.
-      \begin{itemize}
-        \item Latency (RTT by cheap \texttt{ping}).
-        \item Bandwidth.
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Case Studies}
-  How does client-side measurement help monitoring networks?
-  \begin{columns}
-    \begin{column}{0.49\textwidth}
-      \vspace{0pt}
-      \begin{figure}
-        \caption{AP Dominance}
-        \includegraphics[width=\textwidth]{ap_dominance}
-      \end{figure}
-    \end{column}%
-    \begin{column}{0.51\textwidth}
-      \vspace{0pt}
-      \begin{figure}
-        \caption{Wifi Session Signal}
-        \includegraphics[width=\textwidth]{session_rssi}
-      \end{figure}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-
-\begin{frame}{Today}
-  \LARGE
   \begin{itemize}
-    \item Long-term network monitoring
-    \item \textbf{Short-term spectrum management}
-    \item Challenges and Progress
+    \item Only passive data collection.
+    \item This is a \textbf{subset} of what \PS{} would provide (No performance
+      measurements).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Android Natural Scan Interval}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{scan_interval}
+  \end{figure}
+  \begin{itemize}
+    \item 80\% of scan intervals $<$ 1~min.
+    \item Justify our free-ride approach.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{AP Dominance}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{ap_dominance}
+  \end{figure}
+  \begin{itemize}
+    \item Load balancing is a long way to go.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Signal Coverage}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{session_rssi}
+  \end{figure}
+  \begin{itemize}
+    \item User perceived signal coverage may differ from network administrators.
+    \item Users tend to adapt their behavior for better signal?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rogue Access Point}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{ap_dominance}
+  \end{figure}
+  \begin{itemize}
+    \item Identify "coverage holes" in campus network.
+    \item Rouge AP is not necessarily a bad thing.
   \end{itemize}
 \end{frame}
