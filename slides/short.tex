@@ -23,9 +23,52 @@
 \end{frame}
 
 \begin{frame}{Motivation}
+  \large \textbf{So many APs, so few channels.}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{channel}
+  \end{figure}
+  \begin{itemize}
+    \item AP-side channel assignment does not work well.
+    \item Client-assisted channel assignment needs client's cooperation.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{\PS{} Design}
+  \begin{block}{Principle}
+    \begin{itemize}
+      \item Leverage client visibility.
+      \item Do not interrupt current Wifi session.
+      \item Use idle smartphones to represent nearby devices.
+    \end{itemize}
+  \end{block}
+   Proximity detection.
+   \begin{itemize}
+     \item "Proximity'' in signal space.
+   \end{itemize}
+   Do we need to reassign channel?
+   \begin{itemize}
+     \item Two sources of latency
+       (Client~$\longleftrightarrow$~AP~$\longleftrightarrow$~Outside world)
+   \end{itemize}
+   Spectrum measurement.
+   \begin{itemize}
+     \item Wifi monitor mode.
+   \end{itemize}
+   Channel assignment.
+\end{frame}
+
+\begin{frame}{Channel Assignment}
+  \begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+    \end{subfigure}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Preliminary Results}
@@ -33,4 +76,5 @@
 \end{frame}
 
 \begin{frame}{Preliminary Results}
+  Agile channel switching.
 \end{frame}
