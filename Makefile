@@ -1,5 +1,6 @@
-START = xxxnote nodraft noblue
+START = xxxnote nodraft blue
 END = missing
+PYTEX = $(shell pwd)/pytex/
 CLASS = sig-alt-hotnetscr.cls
 
 all: paper ABSTRACT
